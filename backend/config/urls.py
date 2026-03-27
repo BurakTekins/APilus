@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from APilus.views import chat_messages
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/chat/messages', chat_messages, name='chat-messages'),
 ]

@@ -27,7 +27,7 @@ jobs:
           import sys
           import tomllib
 
-          with open("backend/pyproject.toml", "rb") as f:
+          with open("./pyproject.toml", "rb") as f:
               data = tomllib.load(f)
 
           deps = data.get("project", {}).get("dependencies", [])

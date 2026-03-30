@@ -111,5 +111,5 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 
-OLLAMA_BASE_URL = os.environ.get('OLLAMA_BASE_URL', 'http://localhost:11434')
-OLLAMA_MODEL = os.environ.get('OLLAMA_MODEL', 'qwen3')
+LLM_BASE_URL = os.environ.get('LLM_BASE_URL', 'http://vllm:8000/v1')
+LLM_MODEL = os.environ.get('LLM_MODEL', 'Qwen2.5-3B-Instruct-bnb-4bit')

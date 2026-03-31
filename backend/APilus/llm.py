@@ -4,9 +4,9 @@ from django.conf import settings
 
 def generate_answer(question: str) -> str:
     try:
-        url = f"{settings.LLM_BASE_URL}/chat/completions"
+        url = f"{settings.OLLAMA_BASE_URL}/chat/completions"  # ← only this changes
         payload = {
-            "model": settings.LLM_MODEL,
+            "model": settings.OLLAMA_MODEL,                   # ← and this
             "messages": [
                 {
                     "role": "system",

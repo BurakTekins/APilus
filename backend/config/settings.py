@@ -22,9 +22,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -111,5 +111,5 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 
-LLM_BASE_URL = os.environ.get('LLM_BASE_URL', 'http://vllm:8000/v1')
-LLM_MODEL = os.environ.get('LLM_MODEL', 'Qwen2.5-3B-Instruct-bnb-4bit')
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://ollama:11434/v1")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:3b")

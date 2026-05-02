@@ -32,10 +32,10 @@ services:
         ollama serve &
         SERVE_PID=$!
         until ollama list >/dev/null 2>&1; do sleep 1; done
-        ollama pull qwen2.5:3b
+        ollama pull gemma3:4b
         wait $SERVE_PID
     healthcheck:
-      test: ["CMD-SHELL", "ollama list | grep -q 'qwen2.5:3b'"]
+      test: ["CMD-SHELL", "ollama list | grep -q 'gemma3:4b'"]
       interval: 10s
       timeout: 5s
       retries: 30
@@ -59,7 +59,7 @@ services:
       DJANGO_DEBUG: "True"
       DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1,backend"
       OLLAMA_BASE_URL: http://ollama:11434/v1
-      OLLAMA_MODEL: qwen2.5:3b
+      OLLAMA_MODEL: gemma3:4b
     depends_on:
       db:
         condition: service_started

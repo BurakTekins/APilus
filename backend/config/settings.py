@@ -112,4 +112,4 @@ CORS_ALLOW_HEADERS = [
 ]
 
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://ollama:11434/v1")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:3b")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gemma3:4b")

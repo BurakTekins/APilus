@@ -20,7 +20,9 @@ def generate_answer(question: str) -> str:
             }
         ],
         "max_tokens": 512,
-        "temperature": 0.7,
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "top_k": 50,
     }
     try:
         response = httpx.post(url, json=payload, timeout=120.0)

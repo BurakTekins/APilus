@@ -26,6 +26,20 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        ollama serve &
+        SERVE_PID=$!
+        until ollama list >/dev/null 2>&1; do sleep 1; done
+        ollama pull qwen2.5:3b
+        wait $SERVE_PID
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list | grep -q 'qwen2.5:3b'"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
     restart: unless-stopped
 
   backend:
@@ -47,8 +61,10 @@ services:
       OLLAMA_BASE_URL: http://ollama:11434/v1
       OLLAMA_MODEL: qwen2.5:3b
     depends_on:
-      - db
-      - ollama
+      db:
+        condition: service_started
+      ollama:
+        condition: service_healthy
     command: >
       sh -c "
         python manage.py migrate &&
@@ -63,7 +79,7 @@ services:
     ports:
       - "5173:5173"
     environment:
-      VITE_API_BASE_URL: http://localhost:8000/api/v1/chat
+      VITE_API_BASE_URL: http://localhost:8000
     depends_on:
       - backend
     restart: unless-stopped

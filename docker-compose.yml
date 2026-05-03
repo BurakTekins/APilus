@@ -60,6 +60,9 @@ services:
       DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1,backend"
       OLLAMA_BASE_URL: http://ollama:11434/v1
       OLLAMA_MODEL: gemma3:4b
+      HF_TOKEN: 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
+    volumes:
+      - ./RAG:/app/RAG
     depends_on:
       db:
         condition: service_started

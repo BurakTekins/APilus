@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 from .models import ChatSession, ChatMessage
-from .llm import generate_answer
+from .llm import chat
 
 
 @csrf_exempt
@@ -31,13 +31,24 @@ def chat_messages(request):
     else:
         session = ChatSession.objects.create()
 
+    # Pull the last few messages from this session for follow-up context.
+    # Fetch BEFORE creating the new user message so we don't include the
+    # current question itself.
+    recent_messages = list(
+        session.messages.order_by("-created_at").values("role", "content")[:6]
+    )
+    history_list = [
+        {"role": m["role"], "content": m["content"]}
+        for m in reversed(recent_messages)
+    ]
+
     user_msg = ChatMessage.objects.create(
         session=session,
         role="user",
         content=question,
     )
 
-    answer = generate_answer(question)
+    answer = chat(question, history=history_list)
 
     assistant_msg = ChatMessage.objects.create(
         session=session,

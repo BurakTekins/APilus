@@ -1,11 +1,12 @@
 import json
 import uuid
 from unittest.mock import MagicMock, patch
-from django.test import TestCase, Client
+from django.test import TestCase, Client, override_settings
 
 URL = "/api/v1/chat/messages"
 
 
+@override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}})
 class ChatMessagesTests(TestCase):
     def setUp(self):
         self.client = Client()
@@ -53,7 +54,23 @@ class ChatMessagesTests(TestCase):
         self.assertEqual(res2.status_code, 201)
         self.assertNotEqual(res1.json()["session_id"], res2.json()["session_id"])
 
+    def test_caching_returns_previous_answer_without_llm(self):
+        # First request hits the mocked LLM
+        res1 = self.post({"question": "cached question"})
+        self.assertEqual(res1.status_code, 201)
+        self.assertEqual(res1.json()["assistant_message"]["content"], "mocked answer")
+        
+        # Change the mock to return something else
+        self.mock_answer.return_value = "new answer"
+        
+        # Second request with the same question/history should hit cache
+        # Note: new session -> empty history (same as first request)
+        res2 = self.post({"question": "cached question"})
+        self.assertEqual(res2.status_code, 201)
+        self.assertEqual(res2.json()["assistant_message"]["content"], "mocked answer") # still old answer!
 
+
+@override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}})
 class ScoreBasedRoutingTests(TestCase):
     """Verify that chat() routes based on FAISS retrieval scores, not keywords.
 

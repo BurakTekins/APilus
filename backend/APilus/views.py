@@ -1,7 +1,9 @@
 import uuid
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.cache import cache
 import json
+import hashlib
 
 from .models import ChatSession, ChatMessage
 from .llm import chat
@@ -48,7 +50,15 @@ def chat_messages(request):
         content=question,
     )
 
-    answer = chat(question, history=history_list)
+    # Generate a cache key directly from the question + history
+    cache_payload = json.dumps({"q": question, "h": history_list}, sort_keys=True).encode("utf-8")
+    cache_key = "llm_answer_" + hashlib.md5(cache_payload).hexdigest()
+
+    answer = cache.get(cache_key)
+    if not answer:
+        answer = chat(question, history=history_list)
+        # Cache the result for 24 hours (86400 seconds)
+        cache.set(cache_key, answer, 86400)
 
     assistant_msg = ChatMessage.objects.create(
         session=session,

@@ -1,0 +1,25 @@
+# Subpage routing keywords for Bologna OBS pages.
+# When a query mentions courses/curriculum or graduation requirements,
+# retrieval is narrowed to the matching Bologna subpage. Only applied
+# when source filter is already acibadem_obs_bologna.
+# Keywords retain Turkish diacritics for readability; normalization
+# (_normalize) is applied at match time in llm.py.
+keywords:
+  "Dersler":
+    - "ders"
+    - "müfredat"
+    - "course"
+    - "courses"
+    - "curriculum"
+    - "syllabus"
+    - "akts"
+    - "ects"
+    - "kredi"
+    - "credit"
+  "Mezuniyet Koşulları":
+    - "mezuniyet"
+    - "graduation"
+    - "koşul"
+    - "kosul"
+    - "requirement"
+    - "requirements"

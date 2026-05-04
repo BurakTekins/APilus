@@ -1,0 +1,32 @@
+# Corpus routing keywords used to select which FAISS source to query.
+# Keys are source names; values are lists of distinguishing keywords.
+# Keywords retain Turkish diacritics for readability; normalization
+# (_normalize) is applied at match time in llm.py.
+keywords:
+  bologna:
+    - "ders"
+    - "müfredat"
+    - "akts"
+    - "ects"
+    - "kredi"
+    - "dönem"
+    - "yarıyıl"
+    - "curriculum"
+    - "course"
+    - "credit"
+    - "semester"
+    - "bologna"
+    - "program"
+  acu:
+    - "rektör"
+    - "dekan"
+    - "duyuru"
+    - "kampüs"
+    - "iletişim"
+    - "adres"
+    - "tarih"
+    - "vakıf"
+    - "kuruluş"
+    - "rector"
+    - "campus"
+    - "contact"

@@ -113,3 +113,25 @@ CORS_ALLOW_HEADERS = [
 
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://ollama:11434/v1")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gemma3:4b")
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO', # Ensure this is INFO or DEBUG to catch your new logs
+    },
+    'loggers': {
+        # Replace 'your_app_name' with the actual name of the app containing this code
+        'your_app_name': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}

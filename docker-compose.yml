@@ -42,6 +42,14 @@ services:
       start_period: 10s
     restart: unless-stopped
 
+  fix-perms:
+    image: busybox
+    user: root
+    volumes:
+      - hf_cache:/app/.cache/huggingface
+    command: sh -c "chown -R 1000:1000 /app/.cache/huggingface && chmod -R 755 /app/.cache/huggingface"
+    restart: "no"
+
   backend:
     build:
       context: .
@@ -49,6 +57,8 @@ services:
     container_name: apilus_backend
     ports:
       - "8000:8000"
+    env_file:
+      - .env
     environment:
       POSTGRES_DB: apilus
       POSTGRES_USER: apilus
@@ -60,19 +70,21 @@ services:
       DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1,backend"
       OLLAMA_BASE_URL: http://ollama:11434/v1
       OLLAMA_MODEL: gemma3:4b
-      HF_TOKEN: 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
+      HF_HOME: /app/.cache/huggingface
     volumes:
       - ./RAG:/app/RAG
+      - hf_cache:/app/.cache/huggingface
     depends_on:
+      fix-perms:
+        condition: service_completed_successfully
       db:
         condition: service_started
       ollama:
         condition: service_healthy
     command: >
-      sh -c "
-        python manage.py migrate &&
-        python manage.py runserver 0.0.0.0:8000
-      "
+      sh -c "python manage.py migrate &&
+             python manage.py build_rag_index --skip-if-fresh &&
+             python manage.py runserver 0.0.0.0:8000"
     restart: unless-stopped
 
   frontend:
@@ -90,3 +102,4 @@ services:
 volumes:
   postgres_data:
   ollama_data:
+  hf_cache:

@@ -20,7 +20,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     UV_LINK_MODE=copy \
     UV_PYTHON_DOWNLOADS=never \
-    UV_PROJECT_ENVIRONMENT=/opt/venv
+    UV_PROJECT_ENVIRONMENT=/opt/venv 
 
 # Build-time system deps for compiling psycopg2 / wheels with native extensions.
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -59,8 +59,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 RUN apt-get update && apt-get install -y --no-install-recommends \
         libpq5 \
     && rm -rf /var/lib/apt/lists/* \
-    && groupadd --system --gid 1001 app \
-    && useradd --system --uid 1001 --gid app --create-home app
+    && groupadd --system --gid 1000 app \
+    && useradd --system --uid 1000 --gid app --create-home app
 
 # Bring in the pre-built virtualenv from the builder stage.
 COPY --from=builder /opt/venv /opt/venv

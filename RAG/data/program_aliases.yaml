@@ -1,0 +1,205 @@
+# program name → canonical name mappings
+# Each key is the canonical program name; each value is a list of alias substrings.
+# Aliases are matched after _normalize() (lowercased, ASCII-folded). The first
+# match wins, so more specific (longer) names must come before shorter cousins.
+aliases:
+  # --- Faculties / undergraduate programs ---
+  "Tıp Fakültesi":
+    - "tıp fakültesi"
+    - "tıp"
+    - "medicine"
+    - "medical faculty"
+    - "tip fakultesi"
+  "Hemşirelik":
+    - "hemşirelik"
+    - "hemsirelik"
+    - "nursing"
+  "Fizyoterapi ve Rehabilitasyon":
+    - "fizyoterapi"
+    - "rehabilitasyon"
+    - "physiotherapy"
+  "Psikoloji":
+    - "psikoloji"
+    - "psychology"
+  "Eczacılık Fakültesi (İngilizce)":
+    - "eczacılık"
+    - "eczacilik"
+    - "pharmacy"
+  "Beslenme ve Diyetetik":
+    - "beslenme"
+    - "diyetetik"
+    - "nutrition"
+    - "dietetics"
+  "Biyomedikal Mühendisliği (İngilizce)":
+    - "biyomedikal"
+    - "biomedical"
+  "Bilgisayar Mühendisliği (İngilizce)":
+    - "bilgisayar mühendisliği"
+    - "computer engineering"
+  "Moleküler Biyoloji ve Genetik (İngilizce)":
+    - "moleküler biyoloji"
+    - "genetik"
+    - "molecular biology"
+    - "genetics"
+  "Sağlık Yönetimi":
+    - "sağlık yönetimi"
+    - "health management"
+  "Aşçılık":
+    - "aşçılık"
+    - "gastronomi"
+    - "culinary"
+    - "mutfak"
+  "Anestezi":
+    - "anestezi"
+    - "anesthesia"
+  "Diyaliz":
+    - "diyaliz"
+    - "dialysis"
+  "Tıbbi Görüntüleme Teknikleri":
+    - "tıbbi görüntüleme"
+    - "radyoloji"
+    - "medical imaging"
+  "İlk ve Acil Yardım":
+    - "acil yardım"
+    - "ilk yardım"
+    - "emergency"
+    - "paramedic"
+
+  # --- Vocational / associate-degree programs ---
+  "Ameliyathane Hizmetleri":
+    - "ameliyathane"
+    - "operating room"
+  "Ağız ve Diş Sağlığı":
+    - "ağız ve diş"
+    - "agiz ve dis"
+    - "diş sağlığı"
+    - "oral and dental"
+    - "dental health"
+  "Bilgisayar Programcılığı":
+    - "bilgisayar programcılığı"
+    - "computer programming"
+  "Biyomedikal Cihaz Teknolojisi":
+    - "biyomedikal cihaz"
+    - "biomedical device"
+  "Elektronörofizyoloji":
+    - "elektronörofizyoloji"
+    - "elektronorofizyoloji"
+    - "electroneurophysiology"
+  "Ergoterapi":
+    - "ergoterapi"
+    - "occupational therapy"
+  "Odyometri":
+    - "odyometri"
+    - "audiometry"
+  "Optisyenlik":
+    - "optisyenlik"
+    - "optician"
+    - "optometry"
+  "Ortopedik Protez ve Ortez":
+    - "ortopedik protez"
+    - "ortez"
+    - "orthotic"
+    - "prosthetic"
+  "Patoloji Laboratuvar Teknikleri":
+    - "patoloji laboratuvar"
+    - "pathology lab"
+  "Podoloji":
+    - "podoloji"
+    - "podiatry"
+  "Radyoterapi":
+    - "radyoterapi"
+    - "radiotherapy"
+  "Tıbbi Dokümantasyon ve Sekreterlik":
+    - "tıbbi dokümantasyon"
+    - "medical documentation"
+    - "medical secretary"
+  "Tıbbi Laboratuvar Teknikleri":
+    - "tıbbi laboratuvar"
+    - "medical laboratory"
+  "Tıbbi Veri İşleme Teknikerliği":
+    - "tıbbi veri işleme"
+    - "medical data processing"
+
+  # --- Graduate programs ---
+  # Only those whose root word doesn't already resolve to an existing canonical
+  # above via the reranker substring match.
+  "Adli Bilimler Tezli Yüksek Lisans":
+    - "adli bilimler"
+    - "forensic science"
+  "Anatomi (Tıp) Tezli Yüksek Lisans":
+    - "anatomi"
+    - "anatomy"
+  "Bilişsel Nöropsikoloji Tezli Yüksek Lisans":
+    - "bilişsel nöropsikoloji"
+    - "cognitive neuropsychology"
+  "Biyoetik Tezli Yüksek Lisans":
+    - "biyoetik"
+    - "bioethics"
+  "Biyofizik Doktora Programı (İngilizce)":
+    - "biyofizik"
+    - "biophysics"
+  "Biyokimya (Tıp) Tezli Yüksek Lisans":
+    - "biyokimya"
+    - "biochemistry"
+  "Dünya Siyaseti ve Uluslararası İlişkiler Tezli Yüksek Lisans":
+    - "dünya siyaseti"
+    - "uluslararası ilişkiler"
+    - "world politics"
+    - "international relations"
+  "Epidemiyoloji ve Biyoistatistik Tezli Yüksek Lisans":
+    - "epidemiyoloji"
+    - "biyoistatistik"
+    - "epidemiology"
+    - "biostatistics"
+  "Hukuk-Hakimlik Tezli Yüksek Lisans":
+    - "hukuk"
+    - "hakimlik"
+    - "law"
+    - "judgeship"
+  "İş Sağlığı ve Güvenliği Tezli Yüksek Lisans":
+    - "iş sağlığı"
+    - "iş güvenliği"
+    - "occupational health"
+    - "occupational safety"
+  "Kimya (Tıp) Doktora Programı":
+    - "kimya (tıp)"
+    - "chemistry (medical)"
+  "Klinik Biyokimya Tezli Yüksek Lisans":
+    - "klinik biyokimya"
+    - "clinical biochemistry"
+  "Klinik Mikrobiyoloji ve Enfeksiyon Hastalıkları Tezli Yüksek Lisans":
+    - "klinik mikrobiyoloji"
+    - "enfeksiyon hastalıkları"
+    - "clinical microbiology"
+    - "infectious diseases"
+  "Medikal Biyoloji ve Genetik Tezli Yüksek Lisans":
+    - "medikal biyoloji"
+    - "medical biology"
+  "Medikal Fizik Tezli Yüksek Lisans":
+    - "medikal fizik"
+    - "medical physics"
+  "Nütrisyon ve Metabolizma Doktora":
+    - "nütrisyon"
+    - "metabolizma"
+    - "nutrition and metabolism"
+  "Sağlık Bilişimi Tezli Yüksek Lisans":
+    - "sağlık bilişimi"
+    - "health informatics"
+  "Sağlık Hukuku Tezli Yüksek Lisans":
+    - "sağlık hukuku"
+    - "health law"
+  "Sosyal Hizmet Tezli Yüksek Lisans":
+    - "sosyal hizmet"
+    - "social work"
+  "Temel Tıp Bilimleri Doktora":
+    - "temel tıp bilimleri"
+    - "basic medical sciences"
+  "Tıbbi Biyokimya Tezli Yüksek Lisans":
+    - "tıbbi biyokimya"
+    - "medical biochemistry"
+  "Uygulamalı Etik Tezli Yüksek Lisans":
+    - "uygulamalı etik"
+    - "applied ethics"
+  "Yönetim ve Organizasyon Doktora":
+    - "yönetim ve organizasyon"
+    - "management and organization"

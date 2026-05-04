@@ -12,4 +12,8 @@ class ApilusConfig(AppConfig):
         # This prevents the double-loading bug when using the auto-reloader
         if os.environ.get('RUN_MAIN') == 'true':
             print("🚀 Warm-up: Initializing Vector Database...")
-            get_vector_db()
+            try:
+                get_vector_db()
+            except RuntimeError as e:
+                import warnings
+                warnings.warn(str(e), stacklevel=2)
